@@ -11,4 +11,7 @@ Page {
         text: qsTr("You are on the home page.")
         anchors.centerIn: parent
     }
+    Component.onCompleted: {
+        messageDisplay.showAlert("kgjk",true,1);
+    }
 }

@@ -1,12 +1,19 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
+import "qmlComponent/"
 
 ApplicationWindow {
-    id: window
+    id: rootWindow
     visible: true
     width: 640
     height: 480
     title: qsTr("Stack")
+
+    property color backGroundColor : "#394454"
+    property color mainAppColor: "#6fda9c"
+    property color mainTextCOlor: "#f0f0f0"
+    property color popupBackGroundColor: "#b44"
+    property color popupTextCOlor: "#ffffff"
 
     header: ToolBar {
         contentHeight: toolButton.implicitHeight
@@ -32,8 +39,8 @@ ApplicationWindow {
 
     Drawer {
         id: drawer
-        width: window.width * 0.66
-        height: window.height
+        width: rootWindow.width * 0.66
+        height: rootWindow.height
 
         Column {
             anchors.fill: parent
@@ -42,7 +49,7 @@ ApplicationWindow {
                 text: qsTr("Page 1")
                 width: parent.width
                 onClicked: {
-                    stackView.push("Page1Form.ui.qml")
+                    stackView.push("Page1.qml")
                     drawer.close()
                 }
             }
@@ -50,7 +57,7 @@ ApplicationWindow {
                 text: qsTr("Page 2")
                 width: parent.width
                 onClicked: {
-                    stackView.push("Page2Form.ui.qml")
+                    stackView.push("Page2.qml")
                     drawer.close()
                 }
             }
@@ -59,7 +66,24 @@ ApplicationWindow {
 
     StackView {
         id: stackView
-        initialItem: "HomeForm.ui.qml"
+        initialItem: "HomePage.qml"
         anchors.fill: parent
     }
+    AlertMessage{
+        id:messageDisplay
+        signal showAlert(message: string, closeAfterFewSec: bool, type: int);
+
+        Connections {
+            target: messageDisplay
+            function onShowAlert(message,closeAfterFewSec,type) {
+                messageDisplay.alertType=type;
+                messageDisplay.alertMessage=message;
+                messageDisplay.alertCloseAfterFewSec=true;
+                messageDisplay.alertOpen();
+                console.log("showMessage");
+
+            }
+        }
+    }
+
 }

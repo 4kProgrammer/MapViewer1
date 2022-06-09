@@ -5,10 +5,10 @@ Page {
     width: 600
     height: 400
 
-    title: qsTr("Page 1")
+    title: qsTr("Pag1")
 
     Label {
-        text: qsTr("You are on Page 1.")
+        text: qsTr("You are on the Page1 page.")
         anchors.centerIn: parent
     }
 }
